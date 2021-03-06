@@ -2,8 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import VueI18n from 'vue-i18n'
-// import 'bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
