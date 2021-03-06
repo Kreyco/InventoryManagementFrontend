@@ -38,20 +38,21 @@
     </v-app-bar>
 
     <v-main>
-<!--      <HelloWorld/>-->
-      <OrderView/>
+      <HelloWorld/>
+<!--      <OrderView/>-->
     </v-main>
   </v-app>
 </template>
 
 <script>
-import OrderView from './components/OrderView';
+import HelloWorld from './components/HelloWorld';
 
 export default {
   name: 'App',
 
   components: {
-    OrderView,
+    // OrderView,
+    HelloWorld,
   },
   data: () => ({
     //
