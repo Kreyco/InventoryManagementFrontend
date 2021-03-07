@@ -2,7 +2,7 @@
   <div>
     <div class="login-wrapper">
       <div class="login-fields">
-        <h3>{{ $t("login.title") }}</h3>
+        <h3>{{ $t("login.title.title") }}</h3>
         <div>
           <v-form
               class="readmin-form"
@@ -18,8 +18,8 @@
                 <v-text-field
                     v-model="email"
                     :rules="emailRules"
-                    :label="$t('login.email')"
-                    :placeholder="$t('login.email_holder')"
+                    :label="$t('login.label.email')"
+                    :placeholder="$t('login.help.email_holder')"
                     name="email"
                     type="email"
                     :required="true"
@@ -34,8 +34,8 @@
                 <v-text-field
                     v-model="password"
                     :rules="passwordRules"
-                    :label="$t('login.password')"
-                    :placeholder="$t('login.password_holder')"
+                    :label="$t('login.label.password')"
+                    :placeholder="$t('login.help.password_holder')"
                     name="password"
                     type="password"
                     :required="true"
@@ -53,14 +53,14 @@
                   type="submit"
                   :disabled="!valid"
               >
-                {{ $t("login.button") }}
+                {{ $t("login.title.button") }}
               </v-btn
               >
             </div>
 
             <div class="pt20">
               <router-link to="./signin">
-                {{ $t("login.register_url") }}
+                {{ $t("login.title.register_url") }}
               </router-link>
             </div>
           </v-form>

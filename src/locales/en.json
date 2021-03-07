@@ -1,0 +1,44 @@
+{
+  "login": {
+    "label": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "title": {
+      "button": "Login",
+      "register_url": "Are you new? Register",
+      "title": "Login"
+    },
+    "help": {
+      "email_holder": "Enter E-mail",
+      "password_holder": "Enter password",
+      "password_length": "Password length"
+    }
+  },
+  "orderlist": {
+    "title": {
+      "code": "Code",
+      "id": "ID"
+    }
+  },
+  "signin": {
+    "help": {
+      "name_required": "Name is required",
+      "name_length": "The name must contain at least two characters",
+      "email_required": "Email is required",
+      "email_valid": "Email must be correct",
+      "password_required": "Password is required",
+      "password_length": "Password must be at least 8 characters long",
+      "password_equal": "The confirmation password must match the password",
+      "password_confirmation_required": "Password confirmation required"
+    },
+    "label": {
+      "order_id": "Order ID",
+      "order_placeholder": "Enter order ID"
+    },
+    "title": {
+      "consultation": "Consultation",
+      "get_orders": "Get order(s)"
+    }
+  }
+}

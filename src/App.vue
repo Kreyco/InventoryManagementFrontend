@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="main-wrapper">
     <v-app-bar
       app
       color="primary"
@@ -16,7 +16,7 @@
       </v-icon>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="fill-height" fluid>
       <router-view/>
     </v-main>
   </v-app>
@@ -26,7 +26,6 @@
 
 export default {
   name: 'App',
-
   components: {},
   data: () => ({
     title: 'Inventory Management'

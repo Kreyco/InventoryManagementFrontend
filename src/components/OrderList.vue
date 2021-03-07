@@ -1,20 +1,48 @@
 <template>
+  <div>
+    <v-skeleton-loader
+        :loading="loading.table"
+        transition="scale-transition"
+        class="mx-auto"
+        elevation="10"
+        ref="skeleton"
+        :types="{
+        'table-heading': 'heading, button',
+        'table-thead': 'heading@7',
+        'table-tbody': 'table-row-divider@7',
+        'table-row': 'table-cell@7'
+      }"
+        type="table"
+        :tile="true"
+    >
+      <v-data-table
+          dense
+          :headers="headers"
+          :items="orders"
+          :loading="loading.data"
+          :loading-text="$t('loading_message')"
+          class="elevation-10 pa-6"
+          :footer-props="{itemsPerPageOptions: [10, 50, 100, -1]}"
+      >
+        <template v-slot:progress>
+          <v-progress-linear
+              color="purple"
+              :height="4"
+              :active="loading.data"
+              indeterminate
+          ></v-progress-linear>
+        </template>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col" v-for="(header, index) in headers" :key="index">
-          {{ header }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="order in orders" :key="order.id">
-        <th scope="row">{{ order.id }}</th>
-        <th>{{ order.code }}</th>
-      </tr>
-    </tbody>
-  </table>
+        <template v-slot:no-results>
+          {{ $t("userlist.title.no_results") }}
+        </template>
+
+        <template v-slot:no-data>
+          {{ $t("userlist.title.no_data_available") }}
+        </template>
+      </v-data-table>
+    </v-skeleton-loader>
+  </div>
 </template>
 
 <script>
@@ -34,13 +62,23 @@ export default {
         data: true
       },
       headers: [
-        this.$t("orderlist.title.id"),
-        this.$t("orderlist.title.code")
+        {
+          text: this.$t("orderlist.title.id"),
+          align: "left",
+          sortable: true,
+          value: "id"
+        },
+        {
+          text: this.$t("orderlist.title.code"),
+          align: "left",
+          sortable: false,
+          value: "code"
+        }
       ],
       orders: [
-        { id: 1, code: 'OL-001'},
-        { id: 2, code: 'OL-002'},
-        { id: 3, code: 'OL-003'},
+        {id: 1, code: 'OL-001'},
+        {id: 2, code: 'OL-002'},
+        {id: 3, code: 'OL-003'},
       ]
     };
   },
@@ -49,7 +87,10 @@ export default {
       this.loading[type] = state;
     }
   },
-  created() {},
+  created() {
+    this.loadingState('table', false);
+    this.loadingState('data', false);
+  },
 };
 </script>
 
