@@ -1,4 +1,5 @@
-const SignIn = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../components/Signin');
+const SignIn = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/Signin');
+const Login = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/Login');
 const OrderView = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/OrderView');
 
 const routes = [
@@ -10,8 +11,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () =>
-      import(/* webpackChunkName: "login" */ "../components/Login.vue")
+    component: Login
   },
   {
     path: "/orders",

@@ -1,6 +1,3 @@
-import Vue from "vue";
-import Router from "vue-router";
-import routes from "./routes";
 // import NProgress from 'nprogress';
 // import 'nprogress/nprogress.css';
 
@@ -21,6 +18,10 @@ import routes from "./routes";
 //     }
 //   }, progressShowDelay);
 // }
+
+import Vue from "vue";
+import Router from "vue-router";
+import routes from "./routes";
 
 Vue.use(Router);
 
