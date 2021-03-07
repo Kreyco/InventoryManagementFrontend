@@ -1,4 +1,5 @@
 const SignIn = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../components/Signin');
+const OrderView = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/OrderView');
 
 const routes = [
   {
@@ -13,23 +14,20 @@ const routes = [
       import(/* webpackChunkName: "login" */ "../components/Login.vue")
   },
   {
-    path: "/contacts",
-    name: "contacts",
+    path: "/orders",
+    name: "orders",
     meta: {
-      requiresAuth: true
+      // requiresAuth: true
     },
-    component: () =>
-      import(/* webpackChunkName: "contacts" */ "../views/ContactList.vue")
+    component: OrderView
   },
   {
     path: "/",
     name: "home",
     meta: {
-      requiresAuth: true
+      // requiresAuth: true
     },
-    component: SignIn
-    // component: () =>
-      // import(/* webpackChunkName: "home" */ "../views/Dashboard.vue")
+    component: OrderView
   }
 ];
 

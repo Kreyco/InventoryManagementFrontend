@@ -6,7 +6,7 @@
       dark
     >
       <div class="d-flex align-center">
-        <h1>{{ title }}</h1>
+        <h4>{{ title }}</h4>
       </div>
 
       <v-spacer></v-spacer>
@@ -17,29 +17,17 @@
     </v-app-bar>
 
     <v-main>
-<!--      <HelloWorld/>-->
-      <router-view
-          :csrf="csrf"
-          :register-action="registerAction"
-          :login-action="loginAction"
-          :login-facebook="loginFacebook"
-          :login-google="loginGoogle"
-      ></router-view>
+      <router-view/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld';
-import OrderView from './components/OrderView';
 
 export default {
   name: 'App',
 
-  components: {
-    OrderView,
-    // HelloWorld,
-  },
+  components: {},
   data: () => ({
     title: 'Inventory Management'
   }),

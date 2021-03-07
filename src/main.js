@@ -5,6 +5,7 @@ import VueI18n from 'vue-i18n'
 import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
+import router from "./router";
 
 window.axios = require('axios');
 
@@ -41,5 +42,6 @@ new Vue({
   store,
   i18n,
   vuetify,
+  router,
   render: h => h(App)
 }).$mount('#app')
