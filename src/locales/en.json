@@ -18,7 +18,10 @@
   "orderlist": {
     "title": {
       "code": "Code",
-      "id": "ID"
+      "id": "ID",
+      "name": "Name",
+      "priority": "Priority",
+      "delivery_date": "Delivery date"
     }
   },
   "signin": {
@@ -39,6 +42,13 @@
     "title": {
       "consultation": "Consultation",
       "get_orders": "Get order(s)"
+    }
+  },
+  "sidebar": {
+    "title": {
+      "search": "Search",
+      "orders": "Orders",
+      "products": "Products"
     }
   }
 }

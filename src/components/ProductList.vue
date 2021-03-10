@@ -18,7 +18,7 @@
       <v-data-table
           dense
           :headers="headers"
-          :items="orders"
+          :items="products"
           :loading="loading.data"
           :loading-text="$t('loading_message')"
           class="elevation-10 pa-6"
@@ -47,10 +47,10 @@
 
 <script>
 export default {
-  name: "OrderList",
+  name: "ProductList",
   components: {},
   props: {
-    orders: {
+    products: {
       type: [Object, Array],
       default: () => []
     }
@@ -79,20 +79,8 @@ export default {
           align: "left",
           sortable: false,
           value: "code"
-        },
-        {
-          text: this.$t("orderlist.title.priority"),
-          value: "priority",
-          align: "left",
-          sortable: false
-        },
-        {
-          text: this.$t("orderlist.title.delivery_date"),
-          value: "delivery_date",
-          align: "left",
-          sortable: false
-        },
-      ]
+        }
+      ],
     };
   },
   methods: {

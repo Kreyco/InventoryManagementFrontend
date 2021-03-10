@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const APICore = "http://localhost:5001/api/orders";
+const APICore = "http://localhost:8000/api/orders";
 
 export default {
   get() {

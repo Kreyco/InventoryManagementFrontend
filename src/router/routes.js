@@ -1,6 +1,7 @@
 const SignIn = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/Signin');
 const Login = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/Login');
 const OrderView = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/OrderView');
+const ProductView = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/ProductView');
 
 const routes = [
   {
@@ -20,6 +21,14 @@ const routes = [
       // requiresAuth: true
     },
     component: OrderView
+  },
+  {
+    path: "/products",
+    name: "products",
+    meta: {
+      // requiresAuth: true
+    },
+    component: ProductView
   },
   {
     path: "/",

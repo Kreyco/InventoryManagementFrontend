@@ -1,17 +1,17 @@
 <template>
 <div>
-  <OrderList :orders="orders"/>
+  <ProductList :products="products"/>
 </div>
 </template>
 
 <script>
-import OrderList from '../components/OrderList.vue'
-import orderAPI from '../logic/Order'
+import ProductList from '../components/ProductList.vue'
+import productAPI from '../logic/Product'
 
 export default {
-  name: "OrderView",
+  name: "ProductView",
   components: {
-    OrderList
+    ProductList
   },
   props: {},
   data() {
@@ -19,7 +19,7 @@ export default {
       loading: {
         data: true,
       },
-      orders: []
+      products: []
     };
   },
   created() {
@@ -30,32 +30,16 @@ export default {
       this.loading[type] = state;
     },
     async read() {
-      orderAPI
+      productAPI
         .get()
         .then((response) => {
-          this.orders = response.data;
+          this.products = response.data;
 
           this.loadingState("data", false);
         })
         .catch((error) => {
           console.log(error.response.data);
         });
-    },
-    searchOrder(value) {
-      if (value != null && !this.checkForm(value)) {
-        return false;
-      }
-
-      orderAPI
-      .getById(value)
-      .then((response) => {
-        this.orders = response.data;
-
-        this.loadingState("data", false);
-      })
-      .catch((error) => {
-          console.log(error.response.data);
-      });
     },
     checkForm(value) {
       let regex = /^\d+$/gm;
