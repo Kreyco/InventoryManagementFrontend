@@ -53,8 +53,7 @@
                 :disabled="!valid"
             >
               {{ $t("login.title.button") }}
-            </v-btn
-            >
+            </v-btn>
           </div>
 
           <div class="pt20">

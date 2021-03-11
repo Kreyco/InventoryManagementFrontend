@@ -16,9 +16,6 @@ export default {
   props: {},
   data() {
     return {
-      loading: {
-        data: true,
-      },
       orders: []
     };
   },
@@ -26,36 +23,17 @@ export default {
     this.read();
   },
   methods: {
-    loadingState(type, state = true) {
-      this.loading[type] = state;
-    },
     async read() {
       orderAPI
         .get()
         .then((response) => {
           this.orders = response.data;
 
-          this.loadingState("data", false);
+          this.$root.$emit('orders-loaded');
         })
         .catch((error) => {
           console.log(error.response.data);
         });
-    },
-    searchOrder(value) {
-      if (value != null && !this.checkForm(value)) {
-        return false;
-      }
-
-      orderAPI
-      .getById(value)
-      .then((response) => {
-        this.orders = response.data;
-
-        this.loadingState("data", false);
-      })
-      .catch((error) => {
-          console.log(error.response.data);
-      });
     },
     checkForm(value) {
       let regex = /^\d+$/gm;

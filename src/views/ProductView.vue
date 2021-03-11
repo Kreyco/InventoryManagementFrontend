@@ -16,9 +16,6 @@ export default {
   props: {},
   data() {
     return {
-      loading: {
-        data: true,
-      },
       products: []
     };
   },
@@ -35,7 +32,7 @@ export default {
         .then((response) => {
           this.products = response.data;
 
-          this.loadingState("data", false);
+          this.$root.$emit('product-loaded');
         })
         .catch((error) => {
           console.log(error.response.data);

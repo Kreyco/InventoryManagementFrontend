@@ -2,7 +2,7 @@
   <v-data-table
       dense
       :headers="headers"
-      :items="orders"
+      :items="products"
       :loading="loading.data"
       :loading-text="$t('loading_message')"
       class="elevation-10 pa-6"
@@ -18,21 +18,25 @@
     </template>
 
     <template v-slot:no-results>
-      {{ $t("orderlist.title.no_results") }}
+      {{ $t("productlist.title.no_results") }}
     </template>
 
     <template v-slot:no-data>
-      {{ $t("orderlist.title.no_data_available") }}
+      {{ $t("productlist.title.no_data_available") }}
+    </template>
+
+    <template v-slot:item.missing_quantity="{ item }">
+      {{ item.missing_quantity > 0 ? $t("productlist.label.need_resupply") + ' ' + item.missing_quantity : $t("productlist.label.no_need_resupply") }}
     </template>
   </v-data-table>
 </template>
 
 <script>
 export default {
-  name: "OrderList",
+  name: "ProductDetail",
   components: {},
   props: {
-    orders: {
+    products: {
       type: [Object, Array],
       default: () => []
     }
@@ -45,36 +49,48 @@ export default {
       },
       headers: [
         {
-          text: this.$t("orderlist.title.id"),
+          text: this.$t("productlist.title.id"),
           align: "left",
           sortable: true,
           value: "id"
         },
         {
-          text: this.$t("orderlist.title.name"),
+          text: this.$t("productlist.title.name"),
           value: "name",
           align: "left",
           sortable: false
         },
         {
-          text: this.$t("orderlist.title.code"),
+          text: this.$t("productlist.title.code"),
           align: "left",
           sortable: false,
           value: "code"
         },
         {
-          text: this.$t("orderlist.title.priority"),
-          value: "priority",
+          text: this.$t("productlist.title.sell_price"),
           align: "left",
-          sortable: false
+          sortable: false,
+          value: "sell_price"
         },
         {
-          text: this.$t("orderlist.title.delivery_date"),
-          value: "delivery_date",
+          text: this.$t("productlist.title.buy_price"),
           align: "left",
-          sortable: false
+          sortable: false,
+          value: "buy_price"
         },
-      ]
+        {
+          text: this.$t("productlist.title.quantity"),
+          align: "left",
+          sortable: false,
+          value: "quantity"
+        },
+        {
+          text: this.$t("productlist.title.missing_quantity"),
+          align: "left",
+          sortable: false,
+          value: "missing_quantity"
+        },
+      ],
     };
   },
   methods: {
@@ -82,8 +98,8 @@ export default {
       this.loading[type] = state;
     }
   },
-  created() {
-    this.$root.$on('orders-loaded', () => {
+  mounted() {
+    this.$root.$on('product-loaded', () => {
       this.loadingState("data", false);
     });
   },

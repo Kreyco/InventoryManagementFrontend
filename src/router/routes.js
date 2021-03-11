@@ -1,7 +1,8 @@
-const SignIn = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/Signin');
-const Login = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/Login');
-const OrderView = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/OrderView');
-const ProductView = () => import(/* webpackChunkName: "dynamically-imported-component" */ '../views/ProductView');
+const SearchForm = () => import(/* webpackChunkName: "search-form" */ '../views/SearchView');
+const SignIn = () => import(/* webpackChunkName: "signin" */ '../views/Signin');
+const Login = () => import(/* webpackChunkName: "login" */ '../views/Login');
+const OrderView = () => import(/* webpackChunkName: "order-view" */ '../views/OrderView');
+const ProductView = () => import(/* webpackChunkName: "product-view" */ '../views/ProductView');
 
 const routes = [
   {
@@ -29,6 +30,14 @@ const routes = [
       // requiresAuth: true
     },
     component: ProductView
+  },
+  {
+    path: "/search",
+    name: "search",
+    meta: {
+      // requiresAuth: true
+    },
+    component: SearchForm
   },
   {
     path: "/",

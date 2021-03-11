@@ -1,4 +1,5 @@
 {
+  "loading_message": "Loading",
   "login": {
     "label": {
       "email": "Email",
@@ -15,6 +16,11 @@
       "password_length": "Password length"
     }
   },
+  "order": {
+    "title": {
+      "show": "Order"
+    }
+  },
   "orderlist": {
     "title": {
       "code": "Code",
@@ -22,6 +28,21 @@
       "name": "Name",
       "priority": "Priority",
       "delivery_date": "Delivery date"
+    }
+  },
+  "productlist": {
+    "label": {
+      "no_need_resupply": "No need resupply",
+      "need_resupply": "Need resupply"
+    },
+    "title": {
+      "code": "Code",
+      "id": "ID",
+      "name": "Name",
+      "sell_price": "Sell price",
+      "buy_price": "Buy price",
+      "quantity": "Quantity",
+      "missing_quantity": "Missing quantity"
     }
   },
   "signin": {
@@ -49,6 +70,20 @@
       "search": "Search",
       "orders": "Orders",
       "products": "Products"
+    }
+  },
+  "search": {
+    "help": {
+      "order_placeholder": "Enter Order ID"
+    },
+    "label": {
+      "order_id": "Order id",
+      "delivery_date": "Delivery date"
+    },
+    "title": {
+      "consultation": "Consultation",
+      "delivery_date": "Delivery date",
+      "get_orders": "Get order(s)"
     }
   }
 }

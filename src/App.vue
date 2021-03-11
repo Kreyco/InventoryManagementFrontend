@@ -51,7 +51,7 @@
                 {{ item.action }}
               </v-icon>
 
-              <span>
+              <span class="light-gray">
                 {{ item.title }}
               </span>
             </router-link>
@@ -82,21 +82,21 @@ export default {
       return [
         //Now the linkTo use name of the routes [routes file]
         {
-          color: "purple",
+          color: "light-gray",
           action: "mdi-card-search",
           title: this.$t("sidebar.title.search"),
           linkTo: "search",
           active: false,
         },
         {
-          color: "blue",
+          color: "light-gray",
           action: "mdi-currency-usd",
           title: this.$t("sidebar.title.orders"),
           linkTo: "orders",
           active: false,
         },
         {
-          color: "light-blue",
+          color: "light-gray",
           action: "mdi-view-list",
           title: this.$t("sidebar.title.products"),
           linkTo: "products",
@@ -130,10 +130,11 @@ export default {
         padding: 5px 15px 10px;
         display: block;
         text-decoration: none;
+        color: #615f5f;
       }
 
       a:hover {
-        background-color: #2196F3;
+        background-color: #737373;
         color: #ffffff;
       }
     }
@@ -142,8 +143,12 @@ export default {
 
 .v-navigation-drawer {
   .router-link-active {
-    background: linear-gradient(to bottom right, rgba(33, 150, 243, .5019607843137255), rgba(3, 169, 244, .5019607843137255)) !important;
-    color: #fff !important;
+    background: linear-gradient(to bottom right, rgb(214 218 220 / 50%), rgb(165 175 179 / 50%)) !important;
+    color: #281ce0 !important;
+
+    i {
+      color: #281ce0 !important;
+    }
   }
 
   .header {
