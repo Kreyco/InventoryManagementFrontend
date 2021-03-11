@@ -14,6 +14,8 @@
                 :label="$t('search.label.order_id')"
                 outlined
                 dense
+                clearable
+                @change="clearField('delivery_date')"
             />
           </v-col>
           <v-col cols="6" sm="6">
@@ -35,6 +37,7 @@
                     :label="$t('search.title.delivery_date')"
                     outlined
                     dense
+                    clearable
                 />
               </template>
               <v-date-picker
@@ -43,6 +46,7 @@
                   :locale="$i18n.locale"
                   outlined
                   dense
+                  @change="clearField('orderId')"
               ></v-date-picker>
             </v-menu>
           </v-col>
@@ -76,11 +80,10 @@ export default {
   },
   methods: {
     search() {
-      console.log('jodio');
-      console.log(this.orderId);
-      console.log(this.delivery_date);
-
       this.$emit('search', {id: this.orderId, date: this.delivery_date});
+    },
+    clearField(field) {
+      this[field] = null;
     }
   }
 };

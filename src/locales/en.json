@@ -27,7 +27,8 @@
       "id": "ID",
       "name": "Name",
       "priority": "Priority",
-      "delivery_date": "Delivery date"
+      "delivery_date": "Delivery date",
+      "no_data_available": "No data available"
     }
   },
   "productlist": {

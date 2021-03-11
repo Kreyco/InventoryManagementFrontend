@@ -6,7 +6,7 @@
 
 <script>
 import OrderList from '../components/OrderList.vue'
-import orderAPI from '../logic/Order'
+import orderAPI from '../services/Order'
 
 export default {
   name: "OrderView",
@@ -29,7 +29,9 @@ export default {
         .then((response) => {
           this.orders = response.data;
 
-          this.$root.$emit('orders-loaded');
+          this.$store.commit("loadingState", {
+            orders: false
+          });
         })
         .catch((error) => {
           console.log(error.response.data);

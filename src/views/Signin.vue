@@ -106,7 +106,6 @@
 </template>
 
 <script>
-import auth from '@/logic/auth'
 import User from '../models/user';
 
 export default {
@@ -166,23 +165,6 @@ export default {
 
       e.preventDefault();
     },
-    async register() {
-      console.log(this.email);
-      console.log(this.password);
-      console.log(this.passwordConfirm);
-
-      // const response = await auth.register(this.email, this.password);
-      // console.log(response);
-
-      await auth.register(this.email, this.password)
-          .then(response => {
-            console.log(response.data);
-            this.$router.push("/");
-          })
-          .catch(error => {
-            console.log(error);
-          })
-    },
     handleRegister() {
       this.message = '';
       this.submitted = true;
@@ -192,6 +174,7 @@ export default {
               data => {
                 this.message = data.message;
                 this.successful = true;
+                this.$router.push('/');
               },
               error => {
                 this.message =

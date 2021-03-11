@@ -1,10 +1,11 @@
 import axios from "axios";
+import authHeader from "./auth-header";
 
 const APICore = "http://localhost:8000/api/products";
 
 export default {
   get() {
-    return axios.get(APICore);
+    return axios.get(APICore, { headers: authHeader() });
   },
   getById(productId) {
     if (productId == null)
@@ -12,6 +13,6 @@ export default {
       return this.get();
     }
     
-    return axios.get(APICore + `/${productId}`);
+    return axios.get(APICore + `/${productId}`, { headers: authHeader() });
   },
 };

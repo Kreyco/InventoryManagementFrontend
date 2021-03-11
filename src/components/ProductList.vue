@@ -3,7 +3,7 @@
       dense
       :headers="headers"
       :items="products"
-      :loading="loading.data"
+      :loading="loading"
       :loading-text="$t('loading_message')"
       class="elevation-10 pa-6"
       :footer-props="{itemsPerPageOptions: [10, 50, 100, -1]}"
@@ -12,7 +12,7 @@
       <v-progress-linear
           color="purple"
           :height="4"
-          :active="loading.data"
+          :active="loading"
           indeterminate
       ></v-progress-linear>
     </template>
@@ -37,12 +37,13 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    loading() {
+      return this.$store.state.loading.products;
+    }
+  },
   data() {
     return {
-      loading: {
-        table: true,
-        data: true
-      },
       headers: [
         {
           text: this.$t("productlist.title.id"),
@@ -87,12 +88,7 @@ export default {
     loadingState(type, state = true) {
       this.loading[type] = state;
     }
-  },
-  mounted() {
-    this.$root.$on('product-loaded', () => {
-      this.loadingState("data", false);
-    });
-  },
+  }
 };
 </script>
 

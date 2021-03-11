@@ -9,7 +9,7 @@
 
 <script>
 import SearchForm from "../components/SearchForm";
-import SearchAPI from "../logic/Search";
+import SearchAPI from "../services/Search";
 import ProductDetail from "../components/ProductDetail";
 import OrderShow from "../components/OrderShow";
 import OrderList from "../components/OrderList";
@@ -25,10 +25,6 @@ export default {
   },
   methods: {
     search(values) {
-      console.log('hi');
-      console.log(values);
-      console.log(values['id'] !== null);
-      console.log(values['delivery_date'] !== null);
       let regex = /^\d+$/gm;
 
       if (values['id'] !== null && regex.test(values['id'])) {
@@ -42,8 +38,6 @@ export default {
           .then((response) => {
             this.orders = null;
             this.order = response.data;
-            console.log('searchById');
-            console.log(this.order);
 
             this.$root.$emit('product-loaded');
           })
@@ -52,13 +46,11 @@ export default {
     async searchByDeliveryDate(date){
       await SearchAPI.getByDeliveryDate(date)
           .then((response) => {
-            console.log('getByDate');
-            console.log(date);
-            console.log(this.orders);
-
             this.order = null;
             this.orders = response.data;
-            this.$root.$emit('orders-loaded');
+            this.$store.commit("loadingState", {
+              orders: false
+            });
           })
           .catch(error => console.log(error));
     }

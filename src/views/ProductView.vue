@@ -6,7 +6,7 @@
 
 <script>
 import ProductList from '../components/ProductList.vue'
-import productAPI from '../logic/Product'
+import productAPI from '../services/Product'
 
 export default {
   name: "ProductView",
@@ -32,7 +32,9 @@ export default {
         .then((response) => {
           this.products = response.data;
 
-          this.$root.$emit('product-loaded');
+          this.$store.commit("loadingState", {
+            products: false
+          });
         })
         .catch((error) => {
           console.log(error.response.data);
