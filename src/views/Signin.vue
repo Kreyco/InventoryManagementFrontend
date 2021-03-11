@@ -1,8 +1,10 @@
 <template>
-  <div class="login-wrapper">
-    <div class="login-fields">
-      <h3>{{ $t("register.title.title") }}</h3>
-      <div>
+  <div>
+    <v-card class="mx-auto mb-10" max-width="900px">
+      <v-card-title>
+        {{ $t("login.title.title") }}
+      </v-card-title>
+      <v-card-text>
         <v-form
             class="form"
             v-model="valid"
@@ -10,16 +12,16 @@
             lazy-validation
             method="POST"
             ref="form"
-            @submit.prevent="register"
+            @submit.prevent="handleRegister"
         >
           <v-row>
             <v-col cols="12" sm="12">
               <v-text-field
-                  v-model="username"
+                  v-model="name"
                   name="username"
                   :counter="2"
                   :rules="usernameRules"
-                  :label="$t('register.label.username')"
+                  :label="$t('signin.label.name')"
                   autocomplete="username"
                   :required="true"
                   outlined
@@ -33,7 +35,7 @@
                   v-model="email"
                   name="email"
                   :rules="emailRules"
-                  :label="$t('register.label.email')"
+                  :label="$t('signin.label.email')"
                   autocomplete="email"
                   :required="true"
                   outlined
@@ -50,7 +52,7 @@
                   :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                   :rules="passwordRules"
                   color="primary"
-                  :label="$t('register.label.password')"
+                  :label="$t('signin.label.password')"
                   :type="show1 ? 'text' : 'password'"
                   @click:append="show1 = !show1"
                   autocomplete="new-password"
@@ -68,7 +70,7 @@
                   :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                   :rules="passwordConfirmRules"
                   color="primary"
-                  :label="$t('register.label.confirm_password')"
+                  :label="$t('signin.label.confirm_password')"
                   :type="show2 ? 'text' : 'password'"
                   @click:append="show2 = !show2"
                   autocomplete="confirm-password"
@@ -80,23 +82,32 @@
           </v-row>
 
           <v-btn block :disabled="!valid" type="submit" color="primary">
-            {{ $t("register.title.button") }}
+            {{ $t("signin.title.button") }}
           </v-btn>
 
-          <div class="pt20">
+          <div class="pt20 mt-5">
             <router-link to="./login">{{
-                $t("register.title.login_url")
+                $t("signin.title.login_url")
               }}
             </router-link>
           </div>
         </v-form>
-      </div>
+      </v-card-text>
+    </v-card>
+
+    <div
+        v-if="message"
+        class="alert"
+        :class="successful ? 'alert-success' : 'alert-danger'"
+    >
+      {{ message }}
     </div>
   </div>
 </template>
 
 <script>
 import auth from '@/logic/auth'
+import User from '../models/user';
 
 export default {
   name: "Signin",
@@ -107,7 +118,7 @@ export default {
       valid: true,
       show1: false,
       show2: false,
-      username: "",
+      name: "",
       email: "",
       password: "",
       passwordConfirm: "",
@@ -130,8 +141,22 @@ export default {
         () =>
             this.password === this.passwordConfirm ||
             this.$t("signin.help.password_equal")
-      ]
+      ],
+      message: '',
+      user: new User('', '', ''),
+      submitted: false,
+      successful: false
     };
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
+  },
+  mounted() {
+    if (this.loggedIn) {
+      this.$router.push('/search');
+    }
   },
   methods: {
     validate(e) {
@@ -150,13 +175,33 @@ export default {
       // console.log(response);
 
       await auth.register(this.email, this.password)
-      .then(response => {
-        console.log(response.data);
-        this.$router.push("/");
-      })
-      .catch(error => {
-        console.log(error);
-      })
+          .then(response => {
+            console.log(response.data);
+            this.$router.push("/");
+          })
+          .catch(error => {
+            console.log(error);
+          })
+    },
+    handleRegister() {
+      this.message = '';
+      this.submitted = true;
+
+        if (this.isValid) {
+          this.$store.dispatch('auth/register', this.user).then(
+              data => {
+                this.message = data.message;
+                this.successful = true;
+              },
+              error => {
+                this.message =
+                    (error.response && error.response.data) ||
+                    error.message ||
+                    error.toString();
+                this.successful = false;
+              }
+          );
+        }
     }
   }
 };

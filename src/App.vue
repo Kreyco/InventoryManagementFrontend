@@ -2,11 +2,10 @@
   <v-app id="inspire">
     <v-system-bar app>
       <v-spacer></v-spacer>
-
     </v-system-bar>
 
     <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = !drawer" v-if="currentUser"></v-app-bar-nav-icon>
 
       <v-toolbar-title>
         <v-icon class="deep-purple--text">mdi-square</v-icon>
@@ -15,11 +14,25 @@
 
         <v-icon class="light-blue--text">mdi-triangle</v-icon>
 
-        {{  title }}
+        {{ title }}
       </v-toolbar-title>
+
+      <div class="navbar-nav ml-auto" v-if="currentUser">
+        <ul class="nav-items">
+          <li class="nav-item">
+            <a class="nav-link" href @click.prevent="logOut">
+              <v-icon>
+                mdi-turn-off
+              </v-icon>
+              LogOut
+            </a>
+          </li>
+        </ul>
+      </div>
     </v-app-bar>
 
     <v-navigation-drawer
+        v-if="currentUser"
         v-model="drawer"
         fixed
         temporary
@@ -103,6 +116,15 @@ export default {
           active: false,
         }
       ]
+    },
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
     }
   }
 };
@@ -158,6 +180,15 @@ export default {
     width: 256px;
     height: 65px;
     padding: 20px;
+  }
+}
+
+.v-app-bar {
+  .nav-items {
+    list-style: none;
+    a {
+      text-decoration: none;
+    }
   }
 }
 </style>

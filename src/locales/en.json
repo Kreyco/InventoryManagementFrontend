@@ -57,12 +57,14 @@
       "password_confirmation_required": "Password confirmation required"
     },
     "label": {
-      "order_id": "Order ID",
-      "order_placeholder": "Enter order ID"
+      "email": "Email",
+      "name": "Name",
+      "password": "Password",
+      "confirm_password": "Confirm Password"
     },
     "title": {
-      "consultation": "Consultation",
-      "get_orders": "Get order(s)"
+      "button": "Register",
+      "login_url": "Do you have an account? Login"
     }
   },
   "sidebar": {

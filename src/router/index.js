@@ -25,8 +25,6 @@ import routes from "./routes";
 
 Vue.use(Router);
 
-let isAuthenticated = !!window.user;
-
 const router = new Router({
     base: "/",
     mode: "history",
@@ -43,13 +41,12 @@ const router = new Router({
 // router.afterEach(cancelTopProgress);
 
 router.beforeEach((to, from, next) => {
-  // tryInitProgress();
+    const isAuthenticated = localStorage.getItem('user');
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!isAuthenticated) {
             next({
-                // path: "/login",
-                path: "/home",
+                path: "/login",
                 query: { redirect: to.fullPath }
             });
         } else {

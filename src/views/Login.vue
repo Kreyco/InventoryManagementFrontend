@@ -1,74 +1,74 @@
 <template>
-  <div class="login-wrapper">
-    <div class="login-fields">
-      <h3>{{ $t("login.title.title") }}</h3>
-      <div>
-        <v-form
-            class="form"
-            :action="loginAction"
-            method="POST"
-            v-model="valid"
-            ref="form"
-            @submit.prevent="login"
-            lazy-validation
-        >
-          <v-row>
-            <v-col cols="12" sm="12">
-              <v-text-field
-                  v-model="email"
-                  :rules="emailRules"
-                  :label="$t('login.label.email')"
-                  :placeholder="$t('login.help.email_holder')"
-                  name="email"
-                  type="email"
-                  :required="true"
-                  autocomplete="email"
-                  outlined
-                  dense
-              />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" sm="12">
-              <v-text-field
-                  v-model="password"
-                  :rules="passwordRules"
-                  :label="$t('login.label.password')"
-                  :placeholder="$t('login.help.password_holder')"
-                  name="password"
-                  type="password"
-                  :required="true"
-                  autocomplete="current-password"
-                  outlined
-                  dense
-              />
-            </v-col>
-          </v-row>
+  <v-card class="mx-auto mb-10" max-width="900px">
+    <v-card-title>
+      {{ $t("login.title.title") }}
+    </v-card-title>
+    <v-card-text>
+      <v-form
+          class="form"
+          :action="loginAction"
+          method="POST"
+          v-model="isValid"
+          ref="form"
+          @submit.prevent="handleLogin"
+          lazy-validation
+      >
+        <v-row>
+          <v-col cols="12" sm="12">
+            <v-text-field
+                v-model="user.email"
+                :rules="emailRules"
+                :label="$t('login.label.email')"
+                :placeholder="$t('login.help.email_holder')"
+                name="email"
+                type="email"
+                :required="true"
+                autocomplete="email"
+                outlined
+                dense
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="12">
+            <v-text-field
+                v-model="user.password"
+                :rules="passwordRules"
+                :label="$t('login.label.password')"
+                :placeholder="$t('login.help.password_holder')"
+                name="password"
+                type="password"
+                :required="true"
+                autocomplete="current-password"
+                outlined
+                dense
+            />
+          </v-col>
+        </v-row>
 
-          <div class="pt20">
-            <v-btn
-                block
-                color="primary"
-                type="submit"
-                :disabled="!valid"
-            >
-              {{ $t("login.title.button") }}
-            </v-btn>
-          </div>
+        <div class="pt20">
+          <v-btn
+              block
+              color="primary"
+              type="submit"
+              :disabled="!isValid"
+          >
+            {{ $t("login.title.button") }}
+          </v-btn>
+        </div>
 
-          <div class="pt20">
-            <router-link to="./signin">
-              {{ $t("login.title.register_url") }}
-            </router-link>
-          </div>
-        </v-form>
-      </div>
-    </div>
-  </div>
+        <div class="pt20 mt-5">
+          <router-link to="./signin">
+            {{ $t("login.title.register_url") }}
+          </router-link>
+        </div>
+      </v-form>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
-import auth from '@/logic/auth'
+import User from '../models/user';
 
 export default {
   name: "Login",
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       loginAction: '',
-      valid: true,
+      isValid: true,
       email: "",
       password: "",
       emailRules: [
@@ -85,9 +85,22 @@ export default {
       ],
       passwordRules: [
         value => !!value || this.$t("signin.help.password_required"),
-        value => value.length >= 1 || this.$t("login.help.password_length")
-      ]
+        value => value.length >= 8 || this.$t("login.help.password_length")
+      ],
+      user: new User('', '', ''),
+      loading: false,
+      message: ''
     };
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    }
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push('/search');
+    }
   },
   methods: {
     validate(e) {
@@ -97,21 +110,26 @@ export default {
 
       e.preventDefault();
     },
-    async login() {
-      console.log(this.email);
-      console.log(this.password);
+    handleLogin() {
+      if (!this.isValid) {
+        this.loading = false;
+        return;
+      }
 
-      // const response = await auth.login(this.email, this.password);
-      // console.log(response);
-
-      await auth.login(this.email, this.password)
-          .then(response => {
-            console.log(response);
-            // this.$router.push("/");
-          })
-          .catch(error => {
-            console.log(error);
-          })
+      if (this.user.email && this.user.password) {
+        this.$store.dispatch('auth/login', this.user).then(
+            () => {
+              this.$router.push('/');
+            },
+            error => {
+              this.loading = false;
+              this.message =
+                  (error.response && error.response.data) ||
+                  error.message ||
+                  error.toString();
+            }
+        );
+      }
     }
   }
 };

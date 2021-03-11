@@ -12,6 +12,8 @@
                 type="text"
                 :placeholder="$t('search.help.order_placeholder')"
                 :label="$t('search.label.order_id')"
+                outlined
+                dense
             />
           </v-col>
           <v-col cols="6" sm="6">
@@ -31,6 +33,8 @@
                     v-on="on"
                     v-bind="attrs"
                     :label="$t('search.title.delivery_date')"
+                    outlined
+                    dense
                 />
               </template>
               <v-date-picker
